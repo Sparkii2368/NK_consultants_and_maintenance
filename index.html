@@ -8,19 +8,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sanitize.css" />
 <style>
   :root{
-    --brand:#0f7b6c; --accent:#eefaf7; --ink:#1f2937; --muted:#6b7280; --bg:#f9fafb; --line:#e5e7eb;
+    --brand:#1e5aa8; --accent:#edf4ff; --ink:#1f2937; --muted:#6b7280; --bg:#f9fafb; --line:#e5e7eb;
   }
   body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);padding:12px;max-width:980px;margin:auto;}
   nav{display:flex;gap:8px;margin-bottom:12px}
   nav button{padding:10px 14px;border:1px solid var(--brand);border-radius:10px;background:#fff;color:var(--brand);font-weight:700;cursor:pointer}
   nav button.active{background:var(--brand);color:#fff}
-  .sheet{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 6px 20px rgba(0,0,0,.04);}
-  .sheet > header{display:flex;gap:16px;align-items:center;border-bottom:2px solid var(--line);padding-bottom:12px;margin-bottom:16px;}
-  #logo{width:180px;height:auto;display:block;object-fit:contain}
-  .brand-block h1{margin:0 0 6px 0;font-size:22px;letter-spacing:.2px;color:var(--brand)}
-  .brand-sub{margin:0;font-size:13px;color:var(--muted);line-height:1.4}
-  .company-details{margin:6px 0 0 0;font-size:13px;color:var(--muted);line-height:1.4}
-  @media (max-width:640px){.sheet > header{flex-direction:column;text-align:center}#logo{margin:0 auto;width:160px}}
+  .sheet{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 8px 24px rgba(30,90,168,.07);}
+  .sheet > header{display:flex;gap:20px;align-items:center;border:1px solid #194f95;border-radius:10px;background:linear-gradient(120deg,var(--brand),#174779);padding:18px;margin-bottom:16px;}
+  #logo,#logo2{width:210px;max-width:100%;height:auto;display:block;flex-shrink:0;object-fit:contain;background:#fff;border-radius:8px;padding:8px;}
+  .brand-block{min-width:0;}
+  .brand-block h1{margin:0 0 6px 0;font-size:22px;letter-spacing:.2px;color:#fff;line-height:1.3;}
+  .brand-sub{margin:0;font-size:13px;color:#e7efff;line-height:1.5;}
+  .company-details{margin:8px 0 0 0;font-size:13px;color:#e7efff;line-height:1.5;}
+  @media (max-width:640px){.sheet > header{flex-direction:column;text-align:center;gap:14px;}#logo,#logo2{margin:0 auto;width:185px;}}
 
   .card{background:white;border:1px solid var(--line);border-radius:10px;padding:14px;margin:10px 0}
   .row{display:grid;grid-template-columns:repeat(12,1fr);gap:8px}
@@ -140,7 +141,7 @@
     <img id="logo" src="logo.png" alt="NK consultans and maintenance" decoding="async" onerror="this.style.display='none'">
     <div class="brand-block">
       <h1>NK consultants and maintenance — Invoice</h1>
-      <p class="brand-sub">Repairs • Parts • Diagnostics • Field Service</p>
+      <p class="brand-sub">Renovations upgrades welding and building repairs</p>
       <p class="company-details">
         50 Goud Str, Landine, Polokwane, 0699<br>
         Tel: 079 568 1706 / 067 277 0183
@@ -881,7 +882,7 @@ async function downloadPDF(){
   const doc = new jsPDF({unit:'pt', format:'a4'});
   const M = 44;
   const W = doc.internal.pageSize.getWidth();
-  const BRAND = [15,123,108], INK = [31,41,55], MUTED = [107,114,128];
+  const BRAND = [30,90,168], INK = [31,41,55], MUTED = [107,114,128];
 
   const bandH = 90;
 
@@ -906,7 +907,7 @@ async function downloadPDF(){
   try {
     const logoEl = await getHeaderLogo();
     if (logoEl) {
-      const maxW = 56, maxH = 56;
+      const maxW = 72, maxH = 72;
       const scale = Math.min(maxW / (logoEl.naturalWidth||maxW), maxH / (logoEl.naturalHeight||maxH));
       logoW = Math.max(1, (logoEl.naturalWidth||maxW) * scale);
       logoH = Math.max(1, (logoEl.naturalHeight||maxH) * scale);
@@ -933,7 +934,7 @@ async function downloadPDF(){
   doc.setFont('helvetica','normal').setFontSize(10);
   doc.setTextColor(...MUTED);
   const taglineY = contentTop + 14;
-  doc.text('Repairs • Parts • Diagnostics • Field Service', M, taglineY);
+  doc.text('Renovations upgrades welding and building repairs', M, taglineY);
   doc.setTextColor(...INK);
 
   // Business info block (address, VAT, tel)
@@ -1004,7 +1005,7 @@ async function downloadPDF(){
     body,
     theme: 'striped',
     styles: { font: 'helvetica', fontSize: 10, cellPadding: 6 },
-    headStyles: { fillColor: [239,250,247], textColor: INK },
+    headStyles: { fillColor: [237,244,255], textColor: INK },
     columnStyles: {
       0: { cellWidth: 240 },
       1: { cellWidth: 60, halign: 'right' },
